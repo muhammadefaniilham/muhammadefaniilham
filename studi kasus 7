@@ -1,0 +1,122 @@
+#include <iostream>
+#include <conio.h>
+using namespace std;
+
+class Data{
+    public:
+        Data(){
+        	jum = 0;
+            int pil;
+            do{
+                system("cls");
+                cout<<"1. Input Data\n";
+                cout<<"2. Cari Berdasdarkan NIM\n";
+                cout<<"3. Data Terurut (Descending)\n";
+                cout<<"Masukkan Pilihan >> ";
+                cin>>pil;
+                switch (pil)
+                {
+                case 1:
+                    inputData();
+                    break;
+                case 2:
+                    cariData();
+                    break;
+                case 3:
+                	cout<<endl;
+                    bubble_sort();
+                    break;
+                
+                default:
+                    break;
+                }
+        	}while(true);
+        }
+        void inputData(){
+            cout<<"Masukkan nama : ";
+            cin.ignore();
+            getline(cin,d1[jum].nama);
+            cout<<"Masukkan prodi : ";
+            getline(cin,d1[jum].prodi);
+            cout<<"Masukkan nim : ";
+            cin>>d1[jum].nim;
+            jum = jum + 1;
+            cout<<"\n\nData berhasil ditambahkan"<<endl;
+            getche();
+        }
+        //Untuk menukar posisi data
+        int tukar (int a,int b){
+		    long t;
+		    string n,p;
+		    t=d1[b].nim;
+		    n=d1[b].nama;
+		    p=d1[b].prodi;
+		    d1[b].nim=d1[a].nim;
+		    d1[b].nama=d1[a].nama;
+		    d1[b].prodi=d1[a].prodi;
+		    d1[a].nim=t;
+		    d1[a].nama=n;
+		    d1[a].prodi=p;
+		}
+		
+		int tampil(){
+			for (int i=0;i<jum;i++){
+                cout<<"Data ke-"<<i+1<<endl;
+			     cout<<"NIM : "<<d1[i].nim<<endl;
+			     cout<<"Nama : "<<d1[i].nama<<endl;
+			     cout<<"Prodi : "<<d1[i].prodi<<endl;
+                 cout<<"-------------------------------\n\n";
+			}
+			cout<<endl;
+			getche();
+		}
+		
+		//Melakukan pengurutan dengan algoritma bubbleshort
+        int bubble_sort(){
+			for (int i=1; i<jum;i++){
+				for (int j=jum-1; j>=i;j--){
+					if (d1[j].nim>d1[j-1].nim){
+						tukar(j,j-1);
+					}
+				}
+				tampil();
+			}
+			cout<<endl;
+		}
+		cariData(){
+			long nim;
+			int key = 0;
+			bool ketemu = false;
+			cout<<"Masukkan nim yang ingin dicari >> ";
+			cin>>nim;
+			for(int i=0; i<jum; i++){
+				if(nim == d1[i].nim){
+					cout<<"Data ditemukan!"<<endl<<endl;
+					ketemu = true;
+					key = i;
+				}
+			}
+			if(ketemu == true){
+				cout<<"---------------------------\n";
+				cout<<"Nama : "<<d1[key].nama<<endl;
+				cout<<"NIM : "<<d1[key].nim<<endl;
+				cout<<"Prodi : "<<d1[key].prodi<<endl;
+				cout<<"---------------------------\n";
+			}else cout<<"Data tidak ditemukan\n\n";
+			getche();
+		}
+    
+    private:
+        int jum;
+        struct data
+        {
+            string nama, prodi;
+            long nim;
+        }d1[100];
+        
+};
+
+main(){
+    cout<<"Menu"<<endl;
+    Data n = Data();
+}
